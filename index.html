@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Mary ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background:
+        radial-gradient(circle at top, #fff1f5 0%, #ffcbd8 35%, #8f0b32 100%);
+    color: #4b1021;
+    overflow-x: hidden;
+}
+
+.fondo {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rosa {
+    position: absolute;
+    font-size: 50px;
+    animation: flotar 5s ease-in-out infinite;
+    filter: drop-shadow(0 5px 8px rgba(80,0,20,.3));
+}
+
+.rosa1 {
+    left: 5%;
+    top: 8%;
+}
+
+.rosa2 {
+    right: 5%;
+    top: 13%;
+    animation-delay: 1s;
+}
+
+.rosa3 {
+    left: 8%;
+    bottom: 10%;
+    animation-delay: 2s;
+}
+
+.rosa4 {
+    right: 8%;
+    bottom: 8%;
+    animation-delay: 3s;
+}
+
+.corazon {
+    position: absolute;
+    font-size: 25px;
+    animation: subir 7s linear infinite;
+    opacity: .8;
+}
+
+.c1 {
+    left: 15%;
+    bottom: -30px;
+}
+
+.c2 {
+    left: 40%;
+    bottom: -30px;
+    animation-delay: 2s;
+}
+
+.c3 {
+    left: 70%;
+    bottom: -30px;
+    animation-delay: 4s;
+}
+
+.c4 {
+    left: 85%;
+    bottom: -30px;
+    animation-delay: 1s;
+}
+
+.tarjeta {
+    width: min(680px, 100%);
+    background: rgba(255,255,255,.9);
+    border-radius: 30px;
+    padding: 35px 22px;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+    box-shadow: 0 25px 70px rgba(80,0,25,.4);
+    backdrop-filter: blur(10px);
+}
+
+.corazon-grande {
+    font-size: 65px;
+    animation: latido 1.7s infinite;
+}
+
+h1 {
+    font-size: clamp(35px, 9vw, 60px);
+    color: #a50c37;
+    margin: 5px 0 10px;
+}
+
+.subtitulo {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.mensaje {
+    max-width: 570px;
+    margin: 25px auto;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+.boton {
+    border: none;
+    border-radius: 50px;
+    padding: 16px 25px;
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #a70d39, #e72e61);
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(160,10,55,.3);
+    transition: .25s;
+}
+
+.boton:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.fecha {
+    font-size: 14px;
+    opacity: .7;
+    margin-top: 20px;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(35,0,12,.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    z-index: 20;
+}
+
+.modal.activo {
+    display: flex;
+}
+
+.ventana {
+    width: min(620px, 100%);
+    max-height: 92vh;
+    overflow-y: auto;
+    background: #fff7fa;
+    border-radius: 28px;
+    padding: 25px 18px;
+    text-align: center;
+    box-shadow: 0 30px 90px rgba(0,0,0,.5);
+}
+
+.cerrar {
+    float: right;
+    border: none;
+    border-radius: 50%;
+    background: #601329;
+    color: white;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.titulo-contador {
+    font-size: 27px;
+    color: #9d1238;
+}
+
+.contador {
+    margin: 25px 0;
+    padding: 22px 10px;
+    background: white;
+    border-radius: 22px;
+    box-shadow: inset 0 0 0 1px #edcbd4;
+}
+
+.contador-pequeno {
+    font-size: 14px;
+    opacity: .7;
+}
+
+#tiempo {
+    font-family: monospace;
+    font-size: clamp(22px, 6vw, 40px);
+    font-weight: bold;
+    color: #9d1238;
+    margin: 12px 0;
+}
+
+#detalle {
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.musica {
+    margin-top: 20px;
+}
+
+audio {
+    width: 100%;
+}
+
+.frase-final {
+    font-size: 20px;
+    line-height: 1.7;
+    margin-top: 25px;
+}
+
+@keyframes flotar {
+    0%,100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(5deg);
+    }
+}
+
+@keyframes subir {
+    0% {
+        transform: translateY(0) scale(.7);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .8;
+    }
+
+    100% {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+    }
+}
+
+@keyframes latido {
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="fondo">
+
+    <div class="rosa rosa1">🌹</div>
+    <div class="rosa rosa2">🌹</div>
+    <div class="rosa rosa3">🌹</div>
+    <div class="rosa rosa4">🌹</div>
+
+    <div class="corazon c1">💕</div>
+    <div class="corazon c2">❤️</div>
+    <div class="corazon c3">💗</div>
+    <div class="corazon c4">💕</div>
+
+    <main class="tarjeta">
+
+        <div class="corazon-grande">
+            ❤️
+        </div>
+
+        <h1>Para Mary</h1>
+
+        <p class="subtitulo">
+            Una pequeña sorpresa hecha especialmente para ti.
+        </p>
+
+        <div class="mensaje">
+
+            Desde el <strong>14 de abril de 2025</strong>,
+            comenzó una historia que quiero seguir escribiendo contigo.
+
+            <br><br>
+
+            Gracias por cada sonrisa, cada momento,
+            cada abrazo y cada recuerdo.
+
+            <br><br>
+
+            <strong>
+                Quiero seguir compartiendo contigo
+                el resto de mi vida. ❤️
+            </strong>
+
+        </div>
+
+        <button class="boton" id="abrir">
+            🌹 Abrir mi sorpresa 💕
+        </button>
+
+        <p class="fecha">
+            14/04/2025 · Nuestro comienzo ❤️
+        </p>
+
+    </main>
+
+</div>
+
+<!-- VENTANA DEL CONTADOR -->
+
+<div class="modal" id="modal">
+
+    <section class="ventana">
+
+        <button class="cerrar" id="cerrar">
+            ✕
+        </button>
+
+        <div style="clear:both"></div>
+
+        <div style="font-size:55px;">
+            🌹💕🌹
+        </div>
+
+        <h2 class="titulo-contador">
+            Nuestro tiempo juntos
+        </h2>
+
+        <p>
+            Desde el 14 de abril de 2025
+            hasta este mismo instante.
+        </p>
+
+        <div class="contador">
+
+            <div class="contador-pequeno">
+                HA PASADO
+            </div>
+
+            <div id="tiempo">
+                Calculando...
+            </div>
+
+            <div id="detalle">
+                Calculando...
+            </div>
+
+        </div>
+
+        <!-- MÚSICA -->
+
+        <div class="musica">
+
+            <audio id="musica" controls>
+
+                <source
+                    src="musica.mp3"
+                    type="audio/mpeg"
+                >
+
+                Tu navegador no puede reproducir este audio.
+
+            </audio>
+
+        </div>
+
+        <div class="frase-final">
+
+            🌹 <br>
+
+            <strong>
+                Si pudiera volver al comienzo,
+                volvería a elegirte.
+            </strong>
+
+            <br><br>
+
+            ❤️ Te quiero, Mary ❤️
+
+        </div>
+
+    </section>
+
+</div>
+
+<script>
+
+/* FECHA DE INICIO */
+
+const inicio =
+    new Date(2025, 3, 14, 0, 0, 0);
+
+
+/* ELEMENTOS */
+
+const modal =
+    document.getElementById("modal");
+
+const musica =
+    document.getElementById("musica");
+
+const tiempo =
+    document.getElementById("tiempo");
+
+const detalle =
+    document.getElementById("detalle");
+
+
+/* CONTADOR */
+
+function actualizarContador() {
+
+    const ahora =
+        new Date();
+
+    let diferencia =
+        ahora - inicio;
+
+    if (diferencia < 0) {
+        diferencia = 0;
+    }
+
+    const segundosTotales =
+        Math.floor(diferencia / 1000);
+
+    const dias =
+        Math.floor(
+            segundosTotales / 86400
+        );
+
+    const horas =
+        Math.floor(
+            (segundosTotales % 86400) / 3600
+        );
+
+    const minutos =
+        Math.floor(
+            (segundosTotales % 3600) / 60
+        );
+
+    const segundos =
+        segundosTotales % 60;
+
+    tiempo.textContent =
+        `${dias} días · ` +
+        `${String(horas).padStart(2,"0")}:` +
+        `${String(minutos).padStart(2,"0")}:` +
+        `${String(segundos).padStart(2,"0")}`;
+
+    detalle.textContent =
+        `${dias} días, ` +
+        `${horas} horas, ` +
+        `${minutos} minutos y ` +
+        `${segundos} segundos juntos. ❤️`;
+}
+
+
+/* ACTUALIZAR CADA SEGUNDO */
+
+actualizarContador();
+
+setInterval(
+    actualizarContador,
+    1000
+);
+
+
+/* ABRIR */
+
+document
+.getElementById("abrir")
+.addEventListener("click", async function() {
+
+    modal.classList.add("activo");
+
+    actualizarContador();
+
+    try {
+
+        await musica.play();
+
+    } catch(error) {
+
+        /*
+        Algunos celulares requieren
+        pulsar Play manualmente.
+        */
+
+    }
+
+});
+
+
+/* CERRAR */
+
+document
+.getElementById("cerrar")
+.addEventListener("click", function() {
+
+    modal.classList.remove("activo");
+
+    musica.pause();
+
+});
+
+
+/* CERRAR TOCANDO FUERA */
+
+modal.addEventListener("click", function(event) {
+
+    if (event.target === modal) {
+
+        modal.classList.remove("activo");
+
+        musica.pause();
+
+    }
+
+});
+
+
+/* ESC */
+
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Escape" &&
+        modal.classList.contains("activo")
+    ) {
+
+        modal.classList.remove("activo");
+
+        musica.pause();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
